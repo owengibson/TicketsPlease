@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TP
+namespace TP.Player
 {
     public class PlayerController : MonoBehaviour
     {
