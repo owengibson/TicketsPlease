@@ -4,6 +4,6 @@ namespace TP.Player
 {
     public interface IPredicate
     {
-        public bool Evaulate();
+        public bool Evaluate();
     }
 }

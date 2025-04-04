@@ -8,6 +8,7 @@ namespace TP.Player
         protected readonly PlayerController _player;
         protected readonly Animator _animator;
 
+        protected static readonly int _idleHash = Animator.StringToHash("Idle");
         protected static readonly int _locomotionHash = Animator.StringToHash("Locomotion");
         protected static readonly int _dashHash = Animator.StringToHash("Dash");
 

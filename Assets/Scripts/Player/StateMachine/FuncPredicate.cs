@@ -11,6 +11,6 @@ namespace TP.Player
             _func = func;
         }
 
-        public bool Evaulate() => _func.Invoke();
+        public bool Evaluate() => _func.Invoke();
     }
 }

@@ -14,6 +14,7 @@ namespace TP.Player
         [SerializeField] private float _dashCooldown = 1.5f;
 
         private Rigidbody _rb;
+        private Animator _anim;
         private PlayerInput _playerInput;
         private InputAction _moveAction;
         private InputAction _lookAction;
@@ -24,33 +25,55 @@ namespace TP.Player
         private bool _canDash = true;
         private bool _isDashing = false;
 
+        private StateMachine _stateMachine;
+
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+            _anim = GetComponent<Animator>();
             _playerInput = GetComponent<PlayerInput>();
 
             _moveAction = _playerInput.actions["Move"];
             _lookAction = _playerInput.actions["Look"];
             _dashAction = _playerInput.actions["Dash"];
+
+            // State machine setup
+            _stateMachine = new StateMachine();
+
+            var idleState = new IdleState(this, _anim);
+            var locomotionState = new LocomotionState(this, _anim);
+            var dashState = new DashState(this, _anim);
+
+            At(idleState, locomotionState, new FuncPredicate(() => _moveInput.magnitude > 0.1f));
+            At(locomotionState, idleState, new FuncPredicate(() => _rb.linearVelocity.magnitude < 0.1f));
+            
+            // need to write dash transitions
+
+            _stateMachine.SetState(idleState);
         }
+
+        private void At(IState from, IState to, IPredicate condition) => _stateMachine.AddTransition(from, to, condition);
+        private void Any(IState to, IPredicate condition) => _stateMachine.AddAnyTransition(to, condition);
 
         private void Update()
         {
             _moveInput = _moveAction.ReadValue<Vector2>();
             _lookInput = _lookAction.ReadValue<Vector2>();
+
+            _stateMachine.Update();
         }
 
         private void FixedUpdate()
         {
-            HandleMove();
+            _stateMachine.FixedUpdate();
         }
 
-        private void HandleMove()
+        public void HandleMove()
         {
             if (_isDashing) return;
 
-            Vector3 moveDirection = (Vector3.back * _moveInput.y + Vector3.left * _moveInput.x).normalized;
+            Vector3 moveDirection = (Vector3.back * _moveInput.y + Vector3.left * _moveInput.x);
 
             // Apply movement
             if (moveDirection.magnitude > 0.1f)
@@ -81,10 +104,10 @@ namespace TP.Player
         {
             if (!_canDash) return;
 
-            StartCoroutine(DashCoroutine());
+            _canDash = false;
         }
 
-        private IEnumerator DashCoroutine()
+        public IEnumerator DashCoroutine()
         {
             _canDash = false;
             _isDashing = true;

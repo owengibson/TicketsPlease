@@ -14,7 +14,10 @@ namespace TP.Player
         {
             var transition = GetTransition();
             if (transition != null)
+            {
                 ChangeState(transition.To);
+            }
+
 
             _current.State?.Update();
         }
@@ -50,16 +53,17 @@ namespace TP.Player
             previousState?.OnExit();
             nextState?.OnEnter();
             _current = _nodes[state.GetType()];
+            Debug.Log($"Changed to {_current.State.ToString()}");
         }
 
         private ITransition GetTransition()
         {
             foreach (var transition in _anyTransitions)
-                if (transition.Condition.Evaulate())
+                if (transition.Condition.Evaluate())
                     return transition;
 
             foreach (var transition in _current.Transitions)
-                if (transition.Condition.Evaulate())
+                if (transition.Condition.Evaluate())
                     return transition;
 
             return null;
