@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace TP.Player
@@ -8,12 +9,18 @@ namespace TP.Player
 
         public override void OnEnter()
         {
-            _animator.CrossFade(_locomotionHash, _crossFadeDuration);
+            _animator.CrossFadeInFixedTime(_locomotionHash, _crossFadeDuration);
+        }
+
+        public override void Update()
+        {
+            _animator.SetFloat("LocoSpeed", _player._moveInput.magnitude);
         }
 
         public override void FixedUpdate()
         {
             _player.HandleMove();
+            
         }
     }
 }

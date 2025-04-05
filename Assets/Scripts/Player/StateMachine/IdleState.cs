@@ -8,7 +8,7 @@ namespace TP.Player
 
         public override void OnEnter()
         {
-            _animator.CrossFade(_idleHash, _crossFadeDuration);
+            _animator.CrossFadeInFixedTime(_idleHash, _crossFadeDuration);
         }
     }
 }

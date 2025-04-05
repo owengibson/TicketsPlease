@@ -20,10 +20,11 @@ namespace TP.Player
         private InputAction _lookAction;
         private InputAction _dashAction;
 
-        private Vector2 _moveInput;
+        public Vector2 _moveInput;
         private Vector2 _lookInput;
         private bool _canDash = true;
         private bool _isDashing = false;
+        private bool _isDashPressed = false;
 
         private StateMachine _stateMachine;
 
@@ -46,9 +47,14 @@ namespace TP.Player
             var dashState = new DashState(this, _anim);
 
             At(idleState, locomotionState, new FuncPredicate(() => _moveInput.magnitude > 0.1f));
-            At(locomotionState, idleState, new FuncPredicate(() => _rb.linearVelocity.magnitude < 0.1f));
-            
-            // need to write dash transitions
+            At(locomotionState, idleState, new FuncPredicate(() => _rb.linearVelocity.magnitude < 0.1f && _moveInput.magnitude < 0.1f));
+
+            At(idleState, dashState, new FuncPredicate(() => _isDashPressed));
+            At(locomotionState, dashState, new FuncPredicate(() => _isDashPressed));
+
+            At(dashState, locomotionState, new FuncPredicate(() => !_isDashing && _moveInput.magnitude > 0.1f));
+            At(dashState, idleState, new FuncPredicate(() => !_isDashing && _moveInput.magnitude < 0.1f));
+
 
             _stateMachine.SetState(idleState);
         }
@@ -104,13 +110,14 @@ namespace TP.Player
         {
             if (!_canDash) return;
 
-            _canDash = false;
+            _isDashPressed = true;
         }
 
         public IEnumerator DashCoroutine()
         {
-            _canDash = false;
             _isDashing = true;
+            _isDashPressed = false;
+            _canDash = false;
 
             float originalDrag = _rb.linearDamping;
             _rb.linearDamping = 0;
