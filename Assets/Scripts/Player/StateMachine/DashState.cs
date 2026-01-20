@@ -8,8 +8,9 @@ namespace TP.Player
 
         public override void OnEnter()
         {
+            _animator.CrossFadeInFixedTime(_locomotionHash, _crossFadeDuration);
+
             _player.StartCoroutine(_player.DashCoroutine());
-            //_animator.CrossFade(_dashHash, _crossFadeDuration);
         }
     }
 }
