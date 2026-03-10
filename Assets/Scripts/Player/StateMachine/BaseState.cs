@@ -10,7 +10,6 @@ namespace TP.Player
 
         protected static readonly int _idleHash = Animator.StringToHash("Idle");
         protected static readonly int _locomotionHash = Animator.StringToHash("cumball");
-        protected static readonly int _dashHash = Animator.StringToHash("Dash");
 
         protected const float _crossFadeDuration = 0.1f;
 
