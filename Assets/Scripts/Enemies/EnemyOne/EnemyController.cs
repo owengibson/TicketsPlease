@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TP
+namespace TP.Enemies
 {
     public class EnemyController : MonoBehaviour
     {
