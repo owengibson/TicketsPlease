@@ -1,32 +1,35 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TP.Common
 {
     public class HealthComponent : MonoBehaviour
     {
-        public int health;
+        public int maxHealth;
+        private int _currentHealth;
+
         public bool isAlive;
 
-        [SerializeField] int _maxHealth;
+        public UnityEvent onDeath;
 
-        private void Start()
+        private void Awake()
         {
-            health = _maxHealth;
+            _currentHealth = maxHealth;
         }
 
-        public void OnDamageDealt(int damage)
+        public void TakeDamage(int damage)
         {
-            health -= damage;
+            _currentHealth -= damage;
 
-            if (health <= 0)
+            if (_currentHealth <= 0)
             {
-                OnDeath();
+                Die();
             }
         }
 
-        private void OnDeath()
+        private void Die()
         {
-            isAlive = false;
+            onDeath?.Invoke();
         }
     }
 }
