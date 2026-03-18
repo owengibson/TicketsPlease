@@ -1,4 +1,3 @@
-using TP.Player;
 using UnityEngine;
 
 namespace TP.Player
