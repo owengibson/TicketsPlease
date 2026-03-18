@@ -3,17 +3,37 @@ using UnityEngine;
 
 namespace TP.Enemies
 {
-    public class MeleeEnemyBrain: MonoBehaviour
+    public class EnemyBrain : MonoBehaviour
     {
-        [SerializeField] private PlayerSensor playerSensor;
-        [SerializeField] private AStarMoveAction move;
+        EnemyContext ctx;
+
+        public float attackRange = 2f;
+
+        void Awake()
+        {
+            ctx = GetComponent<EnemyContext>();
+        }
 
         void Update()
         {
-            if (playerSensor.target == null)
+            var target = ctx.playerSensor.Target;
+
+            if (target == null)
                 return;
 
-            move.SetDestination(playerSensor.target.position);
+            float dist = Vector3.Distance(
+                ctx.transformRef.position,
+                target.position
+            );
+
+            if (dist > attackRange)
+            {
+                ctx.move.SetDestination(target.position);
+            }
+            else
+            {
+                ctx.attack.TryAttack();
+            }
         }
     }
 }

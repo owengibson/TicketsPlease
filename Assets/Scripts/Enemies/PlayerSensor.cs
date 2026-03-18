@@ -8,13 +8,14 @@ namespace TP.Common
 
         public LayerMask playerLayer;
 
-        public Transform target {  get; private set; }
+        public Transform Target {  get; private set; }
 
         private void Update()
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, _radius, playerLayer);
-            target = hits.Length > 0 ? hits[0].transform : null;
+            Target = hits.Length > 0 ? hits[0].transform : null;
         }
 
     }
 }
+  
