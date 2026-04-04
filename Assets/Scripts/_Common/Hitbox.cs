@@ -1,4 +1,4 @@
-using TP.Common;
+using TP.Combat;
 using UnityEngine;
 
 namespace TP

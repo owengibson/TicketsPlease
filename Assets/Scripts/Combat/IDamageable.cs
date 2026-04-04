@@ -1,6 +1,7 @@
+using TP.Common;
 using UnityEngine;
 
-namespace TP.Common
+namespace TP.Combat
 {
     public interface IDamageable
     {
