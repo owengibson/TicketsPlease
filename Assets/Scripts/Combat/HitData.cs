@@ -1,4 +1,5 @@
 using UnityEngine;
+using TP.Combat.Weapons;
 
 namespace TP.Combat
 {

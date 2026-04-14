@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace TP
+namespace TP.Combat
 {
     [CreateAssetMenu(menuName = "Combat/Combat Action Definition")]
     public class CombatActionDefinition : SerializedScriptableObject
