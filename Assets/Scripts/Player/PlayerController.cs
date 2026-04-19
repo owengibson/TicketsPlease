@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using TP.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TP.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDamageable
     {
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _rotationSpeed = 0.5f;
@@ -151,6 +152,11 @@ namespace TP.Player
         private void OnDisable()
         {
             _dashAction.performed -= HandleDash;
+        }
+
+        public void TakeHit(HitData hit)
+        {
+            Debug.LogWarning("Player took hit");
         }
     }
 }

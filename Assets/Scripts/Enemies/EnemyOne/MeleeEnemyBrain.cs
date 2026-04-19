@@ -7,7 +7,7 @@ namespace TP.Enemies
     {
         EnemyContext ctx;
 
-        public float attackRange = 2f;
+        public float attackRange = 3f;
 
         void Awake()
         {
@@ -21,10 +21,7 @@ namespace TP.Enemies
             if (target == null)
                 return;
 
-            float dist = Vector3.Distance(
-                ctx.transformRef.position,
-                target.position
-            );
+            float dist = Vector3.Distance(ctx.transformRef.position, target.position);
 
             if (dist > attackRange)
             {
@@ -32,6 +29,7 @@ namespace TP.Enemies
             }
             else
             {
+                ctx.move.SetDestination(ctx.transformRef.position);
                 ctx.attack.TryAttack();
             }
         }

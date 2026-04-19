@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &201464389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,7 +717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &483846886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1242,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &900478829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,7 +1960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2bae6dfd6837a4b8fabd8b308b0d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Common.DetectionComponent
-  playerLayer:
+  _radius: 8
+  _playerLayer:
     serializedVersion: 2
     m_Bits: 0
 --- !u!135 &1361721180
