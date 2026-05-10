@@ -8,7 +8,7 @@ namespace TP
     {
         public Transform transformRef;
         public PlayerSensor playerSensor;
-        public AStarMoveAction move;
+        public EnemyMoveAction move;
         public MeleeAttackAction attack;
         public HealthComponent health;
 
@@ -16,7 +16,7 @@ namespace TP
         {
             transformRef = transform;
             playerSensor = GetComponentInChildren<PlayerSensor>();
-            move = GetComponent<AStarMoveAction>();
+            move = GetComponent<EnemyMoveAction>();
             attack = GetComponent<MeleeAttackAction>();
             health = GetComponent<HealthComponent>();
         }

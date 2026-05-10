@@ -2,9 +2,9 @@ using UnityEngine;
 using Pathfinding;
 
 
-namespace TP
+namespace TP.Enemies
 {
-    public class AStarMoveAction : MonoBehaviour
+    public class EnemyMoveAction : MonoBehaviour
     {
         AIPath aStarPath;
 

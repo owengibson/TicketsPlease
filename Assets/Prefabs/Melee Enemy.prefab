@@ -123,12 +123,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3626188030142292259}
-  - component: {fileID: 676936827578137192}
+  - component: {fileID: 3783802949233337851}
   - component: {fileID: 7146140474463415065}
-  - component: {fileID: 7032207949813146239}
   - component: {fileID: 4747851670760578294}
   - component: {fileID: 2593661651340713501}
-  - component: {fileID: 3783802949233337851}
+  - component: {fileID: 676936827578137192}
+  - component: {fileID: 7032207949813146239}
   - component: {fileID: 4062249233520841521}
   m_Layer: 0
   m_Name: Melee Enemy
@@ -146,16 +146,16 @@ Transform:
   m_GameObject: {fileID: 5722648186365778810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49, y: 1.4, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3241609411041584801}
   - {fileID: 5932268403977014777}
+  - {fileID: 3241609411041584801}
   - {fileID: 1960056562877000150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &676936827578137192
+--- !u!114 &3783802949233337851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,10 +164,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5722648186365778810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43b0747e30e735a469eae12dbdefdbcc, type: 3}
+  m_Script: {fileID: 11500000, guid: 29b956f9785e61c40a44d3503a7bf82c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TP.Enemies.MeleeEnemyBrain
-  attackRange: 3
+  m_EditorClassIdentifier: Assembly-CSharp::TP.EnemyContext
+  transformRef: {fileID: 0}
+  playerSensor: {fileID: 0}
+  move: {fileID: 0}
+  attack: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &7146140474463415065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,18 +189,6 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7032207949813146239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5722648186365778810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327a9bc6c5e1b454f938ee9a92c966bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TP.AStarMoveAction
 --- !u!114 &4747851670760578294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +259,7 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &3783802949233337851
+--- !u!114 &676936827578137192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,14 +268,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5722648186365778810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b956f9785e61c40a44d3503a7bf82c, type: 3}
+  m_Script: {fileID: 11500000, guid: 43b0747e30e735a469eae12dbdefdbcc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TP.EnemyContext
-  transformRef: {fileID: 0}
-  playerSensor: {fileID: 0}
-  move: {fileID: 0}
-  attack: {fileID: 0}
-  health: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::TP.Enemies.MeleeEnemyBrain
+  attackRange: 3
+--- !u!114 &7032207949813146239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722648186365778810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3618580d3cada174188a2afb9c5ca473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TP.AStarMoveAction
 --- !u!114 &4062249233520841521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 7271969603465352796}
   - component: {fileID: 7231443961022386976}
   m_Layer: 0
-  m_Name: Collisions
+  m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3241609411041584801}
   - component: {fileID: 7949818680660660588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sensors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2bae6dfd6837a4b8fabd8b308b0d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Common.PlayerSensor
+  _radius: 80
   playerLayer:
     serializedVersion: 2
     m_Bits: 256

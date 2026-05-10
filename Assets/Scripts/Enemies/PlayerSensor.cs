@@ -1,19 +1,39 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TP.Common
 {
     public class PlayerSensor : MonoBehaviour
     {
-        private float _radius = 80f;
+        [SerializeField] private float _radius = 80f;
 
-        public LayerMask playerLayer;
+        [SerializeField] public LayerMask playerLayer;
 
         public Transform Target {  get; private set; }
 
         private void Update()
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, _radius, playerLayer);
-            Target = hits.Length > 0 ? hits[0].transform : null;
+            if (hits.Length == 0)
+            {
+                Target = null;
+                return;
+            }
+
+            Transform closestTarget = hits[0].transform;
+            float smallestDist = Vector3.Distance(closestTarget.position, transform.position);
+
+            for (int i = 1; i < hits.Length; i++)
+            {
+                float dist = Vector3.Distance(hits[i].transform.position, transform.position);
+                if (dist < smallestDist)
+                {
+                    smallestDist = dist;
+                    closestTarget = hits[i].transform;
+                }
+            }
+            Target = closestTarget;
         }
 
         private void OnDrawGizmosSelected()
