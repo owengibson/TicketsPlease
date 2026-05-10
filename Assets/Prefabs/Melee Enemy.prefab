@@ -128,6 +128,8 @@ GameObject:
   - component: {fileID: 7032207949813146239}
   - component: {fileID: 4747851670760578294}
   - component: {fileID: 2593661651340713501}
+  - component: {fileID: 3783802949233337851}
+  - component: {fileID: 4062249233520841521}
   m_Layer: 0
   m_Name: Melee Enemy
   m_TagString: Untagged
@@ -150,6 +152,7 @@ Transform:
   m_Children:
   - {fileID: 3241609411041584801}
   - {fileID: 5932268403977014777}
+  - {fileID: 1960056562877000150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &676936827578137192
@@ -164,8 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b0747e30e735a469eae12dbdefdbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Enemies.MeleeEnemyBrain
-  playerSensor: {fileID: 7949818680660660588}
-  move: {fileID: 7032207949813146239}
+  attackRange: 3
 --- !u!114 &7146140474463415065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271c7316441467344a78964fdcb16983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Common.HealthComponent
-  maxHealth: 0
+  maxHealth: 10
   isAlive: 0
   onDeath:
     m_PersistentCalls:
@@ -239,7 +241,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 10
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -265,6 +267,105 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!114 &3783802949233337851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722648186365778810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b956f9785e61c40a44d3503a7bf82c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TP.EnemyContext
+  transformRef: {fileID: 0}
+  playerSensor: {fileID: 0}
+  move: {fileID: 0}
+  attack: {fileID: 0}
+  health: {fileID: 0}
+--- !u!114 &4062249233520841521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722648186365778810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31bcaf5c33a5e34bb5ee48c35e698a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TP.Enemies.MeleeAttackAction
+  hitbox: {fileID: 7231443961022386976}
+  windup: 0.4
+  activeTime: 0.2
+  recovery: 0.5
+--- !u!1 &6446055684630211593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1960056562877000150}
+  - component: {fileID: 7271969603465352796}
+  - component: {fileID: 7231443961022386976}
+  m_Layer: 0
+  m_Name: Collisions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1960056562877000150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446055684630211593}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3626188030142292259}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7271969603465352796
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446055684630211593}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.88}
+  m_Center: {x: 0, y: 1.39, z: 1.64}
+--- !u!114 &7231443961022386976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446055684630211593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e02af66a1dd20147a2e8925844c3c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TP.Hitbox
 --- !u!1 &7783598784681451200
 GameObject:
   m_ObjectHideFlags: 0

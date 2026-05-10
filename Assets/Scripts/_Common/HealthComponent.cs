@@ -1,12 +1,13 @@
+using TP.Combat;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace TP.Common
 {
-    public class HealthComponent : MonoBehaviour
+    public class HealthComponent : MonoBehaviour, IDamageable
     {
-        public int maxHealth;
-        private int _currentHealth;
+        public float maxHealth;
+        private float _currentHealth;
 
         public bool isAlive;
 
@@ -17,7 +18,7 @@ namespace TP.Common
             _currentHealth = maxHealth;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             _currentHealth -= damage;
 
@@ -30,6 +31,11 @@ namespace TP.Common
         private void Die()
         {
             onDeath?.Invoke();
+        }
+
+        public void TakeHit(HitData hit)
+        {
+            TakeDamage(hit.Damage);
         }
     }
 }

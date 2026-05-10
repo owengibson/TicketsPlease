@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace TP.Enemies
 {
-    public class EnemyBrain : MonoBehaviour
+    public class MeleeEnemyBrain : MonoBehaviour
     {
-        EnemyContext ctx;
+        private EnemyContext ctx;
 
-        public float attackRange = 2f;
+        public float attackRange = 3.0f;
 
         void Awake()
         {
@@ -18,13 +18,10 @@ namespace TP.Enemies
         {
             var target = ctx.playerSensor.Target;
 
-            if (target == null)
-                return;
+            if (target == null) return;
 
-            float dist = Vector3.Distance(
-                ctx.transformRef.position,
-                target.position
-            );
+            float dist = Vector3.Distance(ctx.transformRef.position, target.position);
+            Debug.Log("Distance: " + dist);
 
             if (dist > attackRange)
             {
@@ -32,6 +29,7 @@ namespace TP.Enemies
             }
             else
             {
+                ctx.move.SetDestination(ctx.transformRef.position);
                 ctx.attack.TryAttack();
             }
         }
