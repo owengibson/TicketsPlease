@@ -21,7 +21,6 @@ namespace TP.Enemies
             if (target == null) return;
 
             float dist = Vector3.Distance(ctx.transformRef.position, target.position);
-            Debug.Log("Distance: " + dist);
 
             if (dist > attackRange)
             {

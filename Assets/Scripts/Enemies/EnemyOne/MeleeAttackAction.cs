@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TP.Combat;
 
 namespace TP.Enemies
 {
@@ -12,6 +13,8 @@ namespace TP.Enemies
         public float windup = 0.4f;
         public float activeTime = 0.2f;
         public float recovery = 0.5f;
+
+        [SerializeField] private float damage = 10;
 
         bool isAttacking;
 
@@ -31,14 +34,23 @@ namespace TP.Enemies
             isAttacking = true;
 
             // WINDUP
+            Debug.Log("windup");
             yield return new WaitForSeconds(windup);
 
+            HitData hitData = new HitData
+            {
+                Attacker = gameObject,
+                Damage = damage
+            };
+
             // ACTIVE
-            hitbox.Activate();
+            Debug.Log("active");
+            hitbox.Activate(hitData);
             yield return new WaitForSeconds(activeTime);
             hitbox.Deactivate();
 
             // RECOVERY
+            Debug.Log("recovery");
             yield return new WaitForSeconds(recovery);
 
             isAttacking = false;

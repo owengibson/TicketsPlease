@@ -1,25 +1,57 @@
+using System.Collections.Generic;
 using TP.Combat;
 using UnityEngine;
 
-namespace TP
+namespace TP.Combat
 {
     public class Hitbox : MonoBehaviour
     {
-        public HitData hitData;
-        bool active;
+        [SerializeField] private Collider hitboxCollider;
+        [SerializeField] private LayerMask targetLayers;
+        [SerializeField] private GameObject owner;
 
-        public void Activate() => active = true;
-        public void Deactivate() => active = false;
+        private HitData hitData;
+        private readonly HashSet<IDamageable> alreadyHit = new();
 
-        void OnTriggerEnter(Collider other)
+        private void Awake()
         {
-            if (!active) return;
+            if (hitboxCollider == null)
+                hitboxCollider = GetComponent<Collider>();
 
-            var damageable = other.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.TakeHit(hitData);
-            }
+            hitboxCollider.isTrigger = true;
+            hitboxCollider.enabled = false;
+        }
+
+        public void Activate(HitData hit)
+        {
+            hitData = hit;
+            alreadyHit.Clear();
+            hitboxCollider.enabled = true;
+        }
+
+        public void Deactivate()
+        {
+            hitboxCollider.enabled = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (((1 << other.gameObject.layer) & targetLayers) == 0)
+                return;
+
+            if (owner != null && other.transform.root.gameObject == owner)
+                return;
+
+            var damageable = other.GetComponentInParent<IDamageable>();
+            if (damageable == null)
+                return;
+
+            if (alreadyHit.Contains(damageable))
+                return;
+
+            alreadyHit.Add(damageable);
+
+            damageable.TakeHit(hitData);
         }
     }
 }

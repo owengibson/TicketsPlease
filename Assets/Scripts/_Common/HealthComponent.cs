@@ -9,7 +9,7 @@ namespace TP.Common
         public float maxHealth;
         private float _currentHealth;
 
-        public bool isAlive;
+        public bool isAlive = true;
 
         public UnityEvent onDeath;
 
