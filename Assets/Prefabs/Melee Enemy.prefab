@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Enemies.MeleeEnemyBrain
   attackRange: 3
+  state: 0
 --- !u!114 &7032207949813146239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +333,7 @@ MonoBehaviour:
   windup: 0.4
   activeTime: 0.2
   recovery: 0.5
+  damage: 10
 --- !u!1 &6446055684630211593
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,8 +418,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.88}
-  m_Center: {x: 0, y: 1.39, z: 1.64}
+  m_Size: {x: 1, y: 1, z: 1.8}
+  m_Center: {x: 0, y: 1.4, z: 1.6}
 --- !u!114 &1186020092299332441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3241609411041584801}
   - component: {fileID: 7949818680660660588}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Sensors
   m_TagString: Untagged
   m_Icon: {fileID: 0}

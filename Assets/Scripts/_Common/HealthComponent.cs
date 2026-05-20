@@ -31,6 +31,7 @@ namespace TP.Common
         private void Die()
         {
             onDeath?.Invoke();
+            isAlive = false;
         }
 
         public void TakeHit(HitData hit)

@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
-using static UnityEngine.GraphicsBuffer;
 
 namespace TP.Common
 {
