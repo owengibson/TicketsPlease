@@ -7,7 +7,8 @@ namespace TP.Combat
         Idle = 0,
         Attacking = 1,
         Recovering = 2,
-        Staggered = 3,
-        Disabled = 4
+        Blocking = 3,
+        Staggered = 4,
+        Disabled = 5
     }
 }

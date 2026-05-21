@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73794d0e3276bdb41876d5480b230c74, type: 3}
+  m_Name: Unarmed
+  m_EditorClassIdentifier: 
+  WeaponId: unarmed
+  DisplayName: Unarmed
+  Icon: {fileID: 0}
+  EquippedVisualPrefab: {fileID: 0}
+  MainActionSet: {fileID: 11400000, guid: b1000000000000000000000000000001, type: 2}
+  OffHandAction: {fileID: 11400000, guid: a1000000000000000000000000000001, type: 2}
+  BaseDamageMultiplier: 1
+  AttackSpeedMultiplier: 1
+  AnimatorOverrideController: {fileID: 0}

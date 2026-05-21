@@ -16,27 +16,43 @@ namespace TP.Common
         private void Awake()
         {
             _currentHealth = maxHealth;
-        }
-
-        public void TakeDamage(float damage)
-        {
-            _currentHealth -= damage;
-
-            if (_currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-
-        private void Die()
-        {
-            onDeath?.Invoke();
-            isAlive = false;
+            isAlive = _currentHealth > 0;
         }
 
         public void TakeHit(HitData hit)
         {
-            TakeDamage(hit.Damage);
+            ApplyDamage(Mathf.CeilToInt(hit.Damage));
+        }
+
+        public void TakeDamage(int damage)
+        {
+            ApplyDamage(damage);
+        }
+
+        public void ApplyDamage(int damage)
+        {
+            if (!isAlive || damage <= 0)
+                return;
+
+            _currentHealth -= damage;
+
+            if (_currentHealth <= 0)
+            {
+                _currentHealth = 0;
+                Die();
+            }
+        }
+
+        public bool IsDead() => !isAlive;
+
+        private void Die()
+        {
+            if (!isAlive)
+                return;
+
+            isAlive = false;
+            onDeath?.Invoke();
+            isAlive = false;
         }
     }
 }

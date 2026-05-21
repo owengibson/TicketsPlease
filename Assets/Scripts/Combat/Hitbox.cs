@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace TP.Combat
 {
+    /// <summary>
+    /// Legacy trigger-based attack delivery. New attacks should use CombatActionExecutor.
+    /// </summary>
     public class Hitbox : MonoBehaviour
     {
         [SerializeField] private Collider hitboxCollider;

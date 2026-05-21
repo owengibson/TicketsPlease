@@ -6,6 +6,7 @@ namespace TP.Combat
     {
         MainAttack = 0,
         OffHandAbility = 1,
-        Parry = 2
+        Block = 2,
+        Parry = 3
     }
 }

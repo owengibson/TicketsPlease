@@ -1,4 +1,5 @@
 using System.Collections;
+using TP.Combat;
 using UnityEngine;
 using TP.Combat;
 
@@ -9,6 +10,8 @@ namespace TP.Enemies
         EnemyContext ctx;
 
         public Hitbox hitbox;
+        public CombatActionExecutor actionExecutor;
+        public CombatActionDefinition combatAction;
 
         public float windup = 0.4f;
         public float activeTime = 0.2f;
@@ -21,6 +24,8 @@ namespace TP.Enemies
         void Awake()
         {
             ctx = GetComponent<EnemyContext>();
+            if (actionExecutor == null)
+                actionExecutor = GetComponent<CombatActionExecutor>();
         }
 
         public void TryAttack()
@@ -32,6 +37,12 @@ namespace TP.Enemies
         IEnumerator AttackRoutine()
         {
             isAttacking = true;
+
+            if (actionExecutor != null && combatAction != null)
+            {
+                actionExecutor.ExecuteAction(gameObject, combatAction, (_, _) => isAttacking = false);
+                yield break;
+            }
 
             // WINDUP
             Debug.Log("windup");

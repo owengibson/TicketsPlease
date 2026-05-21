@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928c8aadb16112442b4c54289e016ce9, type: 3}
+  m_Name: Punch_1
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  ActionId: punch_1
+  DisplayName: Punch 1
+  ActionType: 0
+  AnimationTrigger: Punch1
+  StartupDuration: 0.12
+  ActiveDuration: 0.12
+  RecoveryDuration: 0.22
+  BaseDamage: 8
+  KnockbackForce: 2
+  HitboxId: unarmed_main
+  FallbackHitShape: 1
+  FallbackHitOffset: {x: 0, y: 1, z: 1}
+  FallbackHitBoxSize: {x: 1, y: 1, z: 1}
+  FallbackHitRadius: 0.5
+  FallbackHitCapsuleHeight: 1
+  TargetLayers:
+    serializedVersion: 2
+    m_Bits: 503
+  QueryTriggerInteraction: 1
+  CooldownSeconds: 0
+  ChargeCost: 0
+  AmmoCost: 0
+  LockMovement: 1
+  LockActions: 1
+  CanRotateDuringAction: 0
+  CanBeCancelled: 0
+  CanStartInAir: 0
+  CanInterruptRecovery: 0
+  AllowMultipleHits: 0
+  HitVfxPrefab: {fileID: 0}
+  UseSfx: {fileID: 0}
+  HitSfx: {fileID: 0}

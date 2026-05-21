@@ -14,5 +14,6 @@ namespace TP.Combat
         public float KnockbackForce;
         public CombatActionDefinition SourceAction;
         public WeaponDefinition SourceWeapon;
+        public WeaponInstance SourceWeaponInstance;
     }
 }

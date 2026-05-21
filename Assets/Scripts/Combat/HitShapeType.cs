@@ -5,7 +5,7 @@ namespace TP.Combat
     public enum HitShapeType
     {
         Sphere = 0,
-        Capsule = 1,
-        Box = 2
+        Box = 1,
+        Capsule = 2
     }
 }
