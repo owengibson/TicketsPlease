@@ -12,7 +12,7 @@ namespace TP.Combat
     {
         public string ActionId;
         public string DisplayName;
-        public CombatActionType ActionType;
+        //public CombatActionType ActionType;
 
         public string AnimationTrigger;
         [Min(0f)]
