@@ -8,7 +8,7 @@ namespace TP
     {
         public string ActionId;
         public string DisplayName;
-        public CombatActionType ActionType;
+        //public CombatActionType ActionType;
 
         public string AnimationTrigger;
         public float StartupDuration;

@@ -12,6 +12,6 @@ namespace TP.Combat
         public Vector3 Direction;
         public float KnockbackForce;
         public CombatActionDefinition SourceAction;
-        public WeaponDefinition SourceWeapon;
+        //public WeaponDefinition SourceWeapon;
     }
 }
