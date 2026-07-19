@@ -21,7 +21,6 @@ namespace TP.Player
         private InputAction _dashAction;
 
         public Vector2 _moveInput;
-        private Vector2 _lookInput;
         private bool _canDash = true;
         private bool _isDashing = false;
         private bool _isDashPressed = false;
@@ -36,7 +35,6 @@ namespace TP.Player
             _playerInput = GetComponent<PlayerInput>();
 
             _moveAction = _playerInput.actions["Move"];
-            _lookAction = _playerInput.actions["Look"];
             _dashAction = _playerInput.actions["Dash"];
 
             // State machine setup
@@ -65,7 +63,6 @@ namespace TP.Player
         private void Update()
         {
             _moveInput = _moveAction.ReadValue<Vector2>();
-            _lookInput = _lookAction.ReadValue<Vector2>();
 
             _stateMachine.Update();
         }
@@ -79,7 +76,7 @@ namespace TP.Player
         {
             if (_isDashing) return;
 
-            Vector3 moveDirection = (Vector3.back * _moveInput.y + Vector3.left * _moveInput.x);
+            Vector3 moveDirection = (Vector3.forward * _moveInput.y + Vector3.right * _moveInput.x);
 
             // Apply movement
             if (moveDirection.magnitude > 0.1f)
@@ -99,11 +96,6 @@ namespace TP.Player
                 // Slow to a stop if no input
                 _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0);
             }
-        }
-
-        private void HandleLook()
-        {
-            // noop
         }
 
         private void HandleDash(InputAction.CallbackContext context)
