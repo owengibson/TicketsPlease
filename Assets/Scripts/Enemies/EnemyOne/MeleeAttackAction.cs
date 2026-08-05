@@ -1,7 +1,6 @@
 using System.Collections;
 using TP.Combat;
 using UnityEngine;
-using TP.Combat;
 
 namespace TP.Enemies
 {
@@ -20,6 +19,7 @@ namespace TP.Enemies
         [SerializeField] private float damage = 10;
 
         bool isAttacking;
+        Coroutine attackRoutine;
 
         void Awake()
         {
@@ -31,7 +31,7 @@ namespace TP.Enemies
         public void TryAttack()
         {
             if (!isAttacking)
-                StartCoroutine(AttackRoutine());
+                attackRoutine = StartCoroutine(AttackRoutine());
         }
 
         IEnumerator AttackRoutine()
@@ -63,6 +63,21 @@ namespace TP.Enemies
             // RECOVERY
             Debug.Log("recovery");
             yield return new WaitForSeconds(recovery);
+
+            isAttacking = false;
+            attackRoutine = null;
+        }
+
+        public void StopAttack()
+        {
+            if (attackRoutine != null)
+            {
+                StopCoroutine(attackRoutine);
+                attackRoutine = null;
+            }
+
+            if (hitbox != null)
+                hitbox.Deactivate();
 
             isAttacking = false;
         }

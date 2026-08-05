@@ -199,11 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b956f9785e61c40a44d3503a7bf82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.EnemyContext
-  transformRef: {fileID: 3626188030142292259}
-  playerSensor: {fileID: 7949818680660660588}
-  move: {fileID: 7032207949813146239}
-  attack: {fileID: 4062249233520841521}
-  health: {fileID: 7146140474463415065}
 --- !u!114 &7146140474463415065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,9 +213,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TP.Common.HealthComponent
   maxHealth: 10
   isAlive: 1
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4747851670760578294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3618580d3cada174188a2afb9c5ca473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.AStarMoveAction
+  _minimumDestinationChange: 0.25
+  _movingSpeedThreshold: 0.05
 --- !u!114 &4062249233520841521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Enemies.MeleeAttackAction
   hitbox: {fileID: 1186020092299332441}
+  actionExecutor: {fileID: 0}
+  combatAction: {fileID: 0}
   windup: 0.4
   activeTime: 0.2
   recovery: 0.5
@@ -481,7 +477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2bae6dfd6837a4b8fabd8b308b0d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TP.Common.PlayerSensor
-  _radius: 80
-  playerLayer:
+  _radius: 30
+  _playerLayers:
     serializedVersion: 2
     m_Bits: 256
+  _scanInterval: 0.1
+  _maximumHits: 16

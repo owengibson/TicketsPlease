@@ -9,57 +9,78 @@ namespace TP.Enemies
 
         public float attackRange = 3.0f;
 
-        public enum EnemyState {Idle, Chase, Attack, Dead}
+        public enum EnemyState { Idle, Chase, Attack, Dead }
         public EnemyState state;
 
-        void Awake()
+        private void Awake()
         {
             ctx = GetComponent<EnemyContext>();
         }
 
-        void Update()
+        private void Start()
         {
-            var target = ctx.playerSensor.Target;
+            ctx.Health.OnDeath += EnterDeathState;
+        }
+
+        private void Update()
+        {
+            var target = ctx.PlayerSensor.Target;
             float distToTarget = 0;
 
             if (target != null)
             {
-                distToTarget = Vector3.Distance(ctx.transformRef.position, target.position);
+                distToTarget = Vector3.Distance(transform.position, target.position);
             }
             else
             {
                 state = EnemyState.Idle;
             }
 
-            if (ctx.health.isAlive == false)
+            if (ctx.Health.isAlive == false)
             {
                 state = EnemyState.Dead;
             }
 
+            //TODO: extract this to C# classes
             switch (state)
             {
                 case EnemyState.Idle:
-                    ctx.move.Stop();
+                    ctx.Move.Stop();
 
-                    if (distToTarget > attackRange)
+                    if (target == null)
+                        break;
+
+                    if (distToTarget <= attackRange)
+                    {
+                        state = EnemyState.Attack;
+                    }
+                    else
                     {
                         state = EnemyState.Chase;
                     }
                     break;
 
                 case EnemyState.Chase:
-                    ctx.move.Chase(target);
+                    if (target == null)
+                    {
+                        ctx.Move.Stop();
+                        state = EnemyState.Idle;
+                        break;
+                    }
 
                     if (distToTarget <= attackRange)
                     {
+                        ctx.Move.Stop();
                         state = EnemyState.Attack;
+                        break;
                     }
 
+                    ctx.Move.MoveTo(target.position);
                     break;
 
                 case EnemyState.Attack:
-                    ctx.move.Stop();
-                    ctx.attack.TryAttack();
+                    ctx.Move.Stop();
+                    ctx.Attack.TryAttack();
 
                     if (distToTarget > attackRange)
                     {
@@ -70,12 +91,26 @@ namespace TP.Enemies
 
                 case EnemyState.Dead:
                     Debug.Log(name + " is dead");
+                    ctx.Move.Disable();
                     break;
 
                 default:
-                    Debug.LogWarning(name = " has no state");
+                    Debug.LogWarning(name + " has no state");
                     break;
             }
+        }
+
+        private void EnterDeathState()
+        {
+            ctx.Move.Stop();
+            ctx.Attack.StopAttack();
+            state = EnemyState.Dead;
+            Destroy(gameObject);
+        }
+
+        private void OnDisable()
+        {
+            ctx.Health.OnDeath -= EnterDeathState;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using TP.Combat;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,8 +13,8 @@ namespace TP.Common
 
         public bool isAlive = true;
 
-        public UnityEvent onDamaged;
-        public UnityEvent onDeath;
+        public event Action OnDamaged;
+        public event Action OnDeath;
 
         protected virtual void Awake()
         {
@@ -42,7 +43,7 @@ namespace TP.Common
                 return false;
 
             _currentHealth -= damage;
-            onDamaged?.Invoke();
+            OnDamaged?.Invoke();
 
             if (_currentHealth <= 0)
             {
@@ -61,7 +62,7 @@ namespace TP.Common
                 return;
 
             isAlive = false;
-            onDeath?.Invoke();
+            OnDeath?.Invoke();
         }
     }
 }

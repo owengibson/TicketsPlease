@@ -4,21 +4,22 @@ using UnityEngine;
 
 namespace TP
 {
+    [RequireComponent(typeof(EnemyMoveAction))]
+    [RequireComponent(typeof(MeleeAttackAction))]
+    [RequireComponent(typeof(HealthComponent))]
     public class EnemyContext : MonoBehaviour
     {
-        public Transform transformRef;
-        public PlayerSensor playerSensor;
-        public EnemyMoveAction move;
-        public MeleeAttackAction attack;
-        public HealthComponent health;
+        public PlayerSensor PlayerSensor { get; private set; }
+        public EnemyMoveAction Move { get; private set; }
+        public MeleeAttackAction Attack { get; private set; }
+        public HealthComponent Health { get; private set; }
 
         void Awake()
         {
-            transformRef = transform;
-            playerSensor = GetComponentInChildren<PlayerSensor>();
-            move = GetComponent<EnemyMoveAction>();
-            attack = GetComponent<MeleeAttackAction>();
-            health = GetComponent<HealthComponent>();
+            PlayerSensor = GetComponentInChildren<PlayerSensor>();
+            Move = GetComponent<EnemyMoveAction>();
+            Attack = GetComponent<MeleeAttackAction>();
+            Health = GetComponent<HealthComponent>();
         }
     }
 }

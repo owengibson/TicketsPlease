@@ -4,39 +4,71 @@ using Pathfinding;
 
 namespace TP.Enemies
 {
+    [RequireComponent(typeof(AIPath))]
     public class EnemyMoveAction : MonoBehaviour
     {
-        AIPath aStarPath;
+        public bool IsMoving => !_path.isStopped && _path.velocity.sqrMagnitude > _movingSpeedThreshold * _movingSpeedThreshold;
+        public bool HasReachedDestination => _hasDestination && !_path.pathPending && _path.reachedDestination;
+        public Vector3 Velocity => _path.velocity;
+
+        [SerializeField] private float _minimumDestinationChange = 0.25f;
+        [SerializeField] private float _movingSpeedThreshold = 0.05f;
+
+        private AIPath _path;
+        private Vector3 _lastDestination;
+        private bool _hasDestination;
 
         private void Awake()
         {
-            aStarPath = GetComponent<AIPath>();
+            _path = GetComponent<AIPath>();
         }
 
-        private void SetDestination(Vector3 pos)
+        public void MoveTo(Vector3 destination)
         {
-            aStarPath.destination = pos;
-        }
+            _path.isStopped = false;
 
-        public void Chase(Transform target)
-        {
-            Resume();
-            SetDestination(target.position);
+            float minimumChangeSquared = _minimumDestinationChange * _minimumDestinationChange;
+
+            bool destinationChanged = !_hasDestination || (destination - _lastDestination).sqrMagnitude >= minimumChangeSquared;
+
+            if (!destinationChanged)
+                return;
+
+            bool isFirstDestination = !_hasDestination;
+
+            _hasDestination = true;
+            _lastDestination = destination;
+            _path.destination = destination;
+
+            if (isFirstDestination && !_path.pathPending)
+                _path.SearchPath();
         }
 
         public void Stop()
         {
-            aStarPath.canMove = false;
+            _path.isStopped = true;
         }
 
         public void Resume()
         {
-            aStarPath.canMove = true;
+            if (_hasDestination)
+                _path.isStopped = false;
         }
 
-        public void SetSpeed(float moveSpeed)
+        public void SetSpeed(float speed)
         {
-            aStarPath.maxSpeed = moveSpeed;
+            _path.maxSpeed = Mathf.Max(0f, speed);
+        }
+
+        public void Enable()
+        {
+            _path.canMove = true;
+        }
+
+        public void Disable()
+        {
+            _path.isStopped = true;
+            _path.canMove = false;
         }
     }
 }
